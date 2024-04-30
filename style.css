@@ -1,0 +1,134 @@
+*,
+body {
+  position: relative;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  height: 70px;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #101010;
+  color: #eee;
+}
+
+h2 {
+  /* font-size: 20px; */
+  font-family: sans-serif;
+  text-wrap: wrap;
+}
+
+p {
+  text-wrap: wrap;
+}
+
+.search input {
+  padding: 10px;
+}
+
+.search button {
+  padding: 10px 12px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  color: white;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.container {
+  padding: 30px 200px;
+}
+
+h1 {
+  font-size: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 10px;
+}
+
+.card {
+  background-color: #eee;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+label {
+  font-size: 20px;
+  font-family: serif;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.card input {
+  width: 100%;
+  padding: 10px 5px;
+  border: none;
+  border-radius: 2px;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+}
+
+.control {
+  margin-bottom: 10px;
+}
+
+.addNote {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: crimson;
+  cursor: pointer;
+  font-weight: 400;
+  color: white;
+  transition-duration: 200ms;
+}
+
+.addNote:hover {
+    background-color: rgb(175, 18, 50);
+    transition-duration: 200ms;
+}
+
+hr {
+  margin: 10px 0;
+}
+
+.notes-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.note {
+  width: 310px;
+  background-color: #e7e7e7;
+  padding: 10px;
+  border-style: solid;
+  border-radius: 10px;
+}
+
+.delete-button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(220, 20, 60, 0);
+    cursor: pointer;
+    font-weight: 200;
+    color: black;
+    transition-duration: 200ms;
+}
+
+.delete-button:hover {
+    background-color: crimson;
+    color: white;
+    transition-duration: 200ms;
+}
