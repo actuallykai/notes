@@ -31,7 +31,6 @@ function newNote() {
     document.querySelector(".notes-container").appendChild(noteContainer);
 
     noteData[noteTitleInput.value] = [noteTextInput.value, noteContainer];
-    console.log(noteData);
 
     noteTitleInput.value = "";
     noteTextInput.value = "";
