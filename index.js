@@ -3,6 +3,7 @@ var noteData = [];
 var noteContainer = document.querySelector(".note-container");
 var noteNameInput = document.querySelector("#note-name");
 var noteContentInput = document.querySelector("#note-content");
+var searchBar = document.querySelector("#search-input");
 
 var cssBody = document.querySelector("body");
 
@@ -13,6 +14,23 @@ function noteNames(data) {
 
 function getIdFromName(noteName, data) {
     return noteNames(data).indexOf(noteName);
+}
+
+
+function onSearchChanged() {
+    if (searchBar.value === "") {
+        refreshNotes(noteData);
+        return;
+    }
+    refreshNotes(noteData.filter((elem) => {
+        var wordsInName = elem.name.split(" ");
+        for (let i = 0; i < wordsInName.length; i++) {
+            if (wordsInName[i].startsWith(searchBar.value)) {
+                return true;
+            }
+        }
+        return elem.name.startsWith(searchBar.value);
+    }));
 }
 
 
