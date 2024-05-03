@@ -1,48 +1,72 @@
-let noteData = {}
+var noteData = {};
 
-function newNote() {
-    var noteTitleInput = document.getElementById("title");
-    var noteTextInput = document.getElementById("note");
+var noteContainer = document.querySelector(".note-container");
+var noteNameInput = document.querySelector("#note-name");
+var noteContentInput = document.querySelector("#note-content");
 
-    if (noteTitleInput.value === "" || noteTextInput.value === "" || noteTitleInput.value in noteData) {
-        return;
+
+function refreshNotes(newNoteData) {
+    noteContainer.textContent = "";
+    for (let i = 0; i < newNoteData.length; i++) {
+        noteContainer.appendChild(
+            newNoteData[newNoteData.keys()[i]].element
+        );
     }
+}
 
-    var noteContainer = document.createElement("div");
-    noteContainer.classList.add("note");
+function displayNote(noteName, noteContent) {
+    var note = document.createElement("div");
+    note.classList.add("note");
 
-    var noteTitle = document.createElement("h2");
-    noteTitle.appendChild(document.createTextNode(noteTitleInput.value))
+    var noteNameElem = document.createElement("h3");
+    noteNameElem.classList.add("note-name");
+    noteNameElem.innerHTML = noteName;
 
-    var noteText = document.createElement("p");
-    noteText.appendChild(document.createTextNode(noteTextInput.value))
+    var noteContentElem = document.createElement("p");
+    noteContentElem.classList.add("note-content");
+    noteContentElem.innerHTML = noteContent;
 
     var deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
-    deleteButton.appendChild(document.createTextNode("Delete"));
+    deleteButton.innerHTML = "Delete";
+    deleteButton.addEventListener("click", () => deleteNote(noteName));
 
-    deleteButton.addEventListener("click", deleteNote.bind(deleteButton, noteTitleInput.value));
 
+    note.appendChild(noteNameElem);
+    note.appendChild(noteContentElem);
+    note.appendChild(deleteButton);
 
-    noteContainer.appendChild(noteTitle);
-    noteContainer.appendChild(noteText);
-    noteContainer.appendChild(deleteButton);
+    noteContainer.appendChild(note);
 
-    document.querySelector(".notes-container").appendChild(noteContainer);
-
-    noteData[noteTitleInput.value] = [noteTextInput.value, noteContainer];
-
-    noteTitleInput.value = "";
-    noteTextInput.value = "";
+    return note;
 }
 
 
-function deleteNote(noteTitle) {
-    console.log(noteTitle);
-    if (!(noteTitle in noteData)) {
+function newNote() {
+    if (
+        noteNameInput.value === "" ||
+        noteContentInput.value === "" ||
+        noteNameInput.value in noteData
+    ) {
         return;
     }
 
-    noteData[noteTitle][1].remove();
-    delete noteData[noteTitle];
+    noteData[noteNameInput.value] = {
+        name: noteNameInput.value, 
+        content: noteContentInput.value, 
+        element: displayNote(noteNameInput.value, noteContentInput.value), 
+    }
+    
+    noteNameInput.value = "";
+    noteContentInput.value = "";
+}
+
+
+function deleteNote(noteName) {
+    if (!(noteName in noteData)) {
+        return;
+    }
+
+    noteData[noteName].element.remove();
+    delete noteData[noteName];
 }
