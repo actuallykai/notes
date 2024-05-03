@@ -1,16 +1,25 @@
-var noteData = {};
+var noteData = [];
 
 var noteContainer = document.querySelector(".note-container");
 var noteNameInput = document.querySelector("#note-name");
 var noteContentInput = document.querySelector("#note-content");
 
+var cssBody = document.querySelector("body");
+
+
+function noteNames(data) {
+    return data.map((x) => x.name);
+}
+
+function getIdFromName(noteName, data) {
+    return noteNames(data).indexOf(noteName);
+}
+
 
 function refreshNotes(newNoteData) {
     noteContainer.textContent = "";
     for (let i = 0; i < newNoteData.length; i++) {
-        noteContainer.appendChild(
-            newNoteData[newNoteData.keys()[i]].element
-        );
+        noteContainer.appendChild(newNoteData[i].element);
     }
 }
 
@@ -46,27 +55,40 @@ function newNote() {
     if (
         noteNameInput.value === "" ||
         noteContentInput.value === "" ||
-        noteNameInput.value in noteData
+        noteNames(noteData).includes(noteNameInput.value)
     ) {
         return;
     }
 
-    noteData[noteNameInput.value] = {
+    noteData.push({
         name: noteNameInput.value, 
         content: noteContentInput.value, 
         element: displayNote(noteNameInput.value, noteContentInput.value), 
-    }
+    });
     
     noteNameInput.value = "";
     noteContentInput.value = "";
+
+    console.log(noteNames(noteData));
+    console.log(noteData);
+
+    cssBody.style.setProperty("--note-container-scroll", "scroll");
 }
 
 
 function deleteNote(noteName) {
-    if (!(noteName in noteData)) {
+    if (!noteNames(noteData).includes(noteName)) {
         return;
     }
 
-    noteData[noteName].element.remove();
-    delete noteData[noteName];
+    var noteIdx = getIdFromName(noteName, noteData);
+
+    console.log(noteData[noteIdx]);
+
+    noteData[noteIdx].element.remove();
+    noteData.splice(noteIdx, 1);
+
+    if (noteData.length < 1) {
+        cssBody.style.setProperty("--note-container-scroll", "hidden");
+    }
 }

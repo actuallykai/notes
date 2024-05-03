@@ -8,6 +8,7 @@ body {
   overflow-y: hidden;
 
   --create-note-opacity: 1;
+  --note-container-scroll: hidden;
 }
 
 .main-content {
@@ -79,7 +80,7 @@ textarea {
 }
 
 .note-container {
-  overflow-y: scroll;
+  overflow-y: var(--note-container-scroll);
   margin-top: 20px;
   height: 40vh;
 }
